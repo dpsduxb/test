@@ -11,12 +11,13 @@ import com.hkjc.racing.model.RaceCard;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Jockey;
 import com.hkjc.racingtouch.model.RaceResult;
+import com.hkjc.racingtouch.utils.SQLUtil;
 
 public class RacingService {
 	
 	public void saveRace(Race race) {
 		try {
-			Connection conn = new DatabaseConnection().getConnection();
+			Connection conn = new SQLUtil().getConnection();
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceData " + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
@@ -46,7 +47,7 @@ public class RacingService {
 
 	public void saveJockey(Jockey jockey) {
 		try {
-			Connection conn = new DatabaseConnection().getConnection();
+			Connection conn = new SQLUtil().getConnection();
 
 			String queryString = "INSERT INTO [HKJC].[dbo].Jockey " + "VALUES (?,?,?,?,?,?,?,?,?)";
 
@@ -71,7 +72,7 @@ public class RacingService {
 
 	public void saveHorseInfo(RaceXMLParser race) {
 		try {
-			Connection conn = new DatabaseConnection().getConnection();
+			Connection conn = new SQLUtil().getConnection();
 
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceHorse "
 					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -117,7 +118,7 @@ public class RacingService {
 
 	public void saveRaceResults(RaceResult race) {
 		try {
-			Connection conn = new DatabaseConnection().getConnection();
+			Connection conn = new SQLUtil().getConnection();
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
@@ -137,30 +138,9 @@ public class RacingService {
 		}
 	}
 
-	private void saveCompositeOddData(CompositeOdd comOdd) {
-		try {
-			Connection conn = new DatabaseConnection().getConnection();
-
-			String queryString = "INSERT INTO [HKJC].[dbo].CompositeOdds " + "VALUES (?,?,?,?,?)";
-
-			PreparedStatement statement = conn.prepareStatement(queryString);
-			statement.setDate(1, new Date(comOdd.getRaceDate().getTime()));
-			statement.setInt(2, comOdd.getRaceNo());
-			statement.setFloat(3, comOdd.getA1Value());
-			statement.setFloat(4, comOdd.getA2Value());
-			statement.setFloat(5, comOdd.getA3Value());
-
-			statement.executeUpdate();
-
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void saveRaceCard(RaceCard raceCard) {
 		try {
-			Connection conn = new DatabaseConnection().getConnection();
+			Connection conn = new SQLUtil().getConnection();
 
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceCard "
 					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
