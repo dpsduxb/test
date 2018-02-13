@@ -17,10 +17,10 @@ public class AnalysisManager {
 		return executeQuery(queryString, groupByCols);
 	}
 	
-	public List<Map<String, Object>> getResultRecordsByGroup(List<String> groupByCols){
+	public List<Map<String, Object>> getResultRecordsByGroup(List<String> groupByCols ){
 		String queryString = "SELECT " + groupByCols.toString() + ", COUNT(position) as winTotal, COUNT(*) as total, "
 				+ "(winTotal/total)*10 as winPercentage FROM [HKJC].[dbo].RaceHorse rh LEFT OUTER JOIN RaceResult rr "
-				+ "ON rh.MeetingDate = rr.MeetingDate AND rh.RaceNo = rr.RaceNo AND rh.HorseNo = rr.HorseNo WHERE position =1 GROUP BY " 
+				+ "ON rh.MeetingDate = rr.MeetingDate AND rh.RaceNo = rr.RaceNo AND rh.HorseNo = rr.HorseNo WHERE position = 1 GROUP BY " 
 				+ groupByCols.toString() + " ORDER BY total desc";
 		
 		return executeQuery(queryString, groupByCols);
