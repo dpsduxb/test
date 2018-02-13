@@ -18,7 +18,7 @@ import org.jsoup.select.Elements;
 
 import com.hkjc.racing.model.CompositeOdd;
 import com.hkjc.racing.model.Race;
-import com.hkjc.racing.sql.ConnectMSSQLServer;
+import com.hkjc.racing.sql.RacingService;
 
 public class RacingMain {
 
@@ -52,7 +52,7 @@ public class RacingMain {
 	
 	private static void loadRacesData(String url, boolean isToday) throws Exception{
 		List<String> raceDates = getRaceDates(url);
-		ConnectMSSQLServer mssqlServer = new ConnectMSSQLServer();
+		RacingService racingService = new RacingService();
 		for (String raceDateUrl : raceDates) {
 			List<String> raceNos = getRaceNos(raceDateUrl);
 			
@@ -64,7 +64,7 @@ public class RacingMain {
 						Race race = createRace(raceRecord, raceDetails[raceDetails.length-3], 
 								raceDetails[raceDetails.length-1], raceDetails[raceDetails.length-2]);
 						if( race != null ){
-							mssqlServer.insertData( race );
+							racingService.saveRace( race );
 						}else{
 							System.out.println("Error");
 						}

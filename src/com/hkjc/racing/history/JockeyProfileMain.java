@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hkjc.racing.sql.ConnectMSSQLServer;
+import com.hkjc.racing.sql.RacingService;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Jockey;
 
@@ -56,7 +56,7 @@ public class JockeyProfileMain {
 			jockey2.setWin(seasonStat.attr("WIN"));
 			jockey2.setPlace(seasonStat.attr("PLACE"));
 			
-			new ConnectMSSQLServer().insertJockeyInfoData(jockey2);
+			new RacingService().saveJockey(jockey2);
 		}
 		
 	}

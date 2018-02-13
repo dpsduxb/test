@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hkjc.racing.sql.ConnectMSSQLServer;
+import com.hkjc.racing.sql.RacingService;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
 
 public class RacingTouchMain {
@@ -50,7 +50,7 @@ public class RacingTouchMain {
 			xmlParser.parseRaceMeetingXML(meeting);
 			for (Element raceHorse : race.select("Starter")) {
 				xmlParser.parseRaceStarterXML(raceHorse);
-				new ConnectMSSQLServer().insertHorseInfoData(xmlParser);
+				new RacingService().saveHorseInfo(xmlParser);
 			}
 		}
 		return raceRecords;

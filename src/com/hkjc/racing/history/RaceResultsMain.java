@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hkjc.racing.sql.ConnectMSSQLServer;
+import com.hkjc.racing.sql.RacingService;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Jockey;
 import com.hkjc.racingtouch.model.RaceResult;
@@ -58,7 +58,7 @@ public class RaceResultsMain {
 				raceResult.setHorseNo(result.attr("StarterNumber"));
 				
 			
-				new ConnectMSSQLServer().insertRaceResultData(raceResult);
+				new RacingService().saveRaceResults(raceResult);
 			}
 		}
 		

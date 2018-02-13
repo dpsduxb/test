@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
 
 import com.hkjc.racing.model.Race;
 import com.hkjc.racing.model.RaceCard;
-import com.hkjc.racing.sql.ConnectMSSQLServer;
+import com.hkjc.racing.sql.RacingService;
 
 public class RaceDayDataMain {
 
@@ -32,7 +32,7 @@ public class RaceDayDataMain {
 	}
 
 	private static void loadRacesData(String url) throws Exception{
-		ConnectMSSQLServer mssqlServer = new ConnectMSSQLServer();
+		RacingService racingService = new RacingService();
 		
 		List<String> raceNos = getRaceNos(url);
 		
@@ -44,7 +44,7 @@ public class RaceDayDataMain {
 					RaceCard race = createRaceCard(raceRecord, raceDetails[raceDetails.length-3], 
 							raceDetails[raceDetails.length-1], raceDetails[raceDetails.length-2]);
 					if( race != null ){
-						mssqlServer.insertRaceCard( race );
+						racingService.saveRaceCard( race );
 						System.out.println(race);
 					}else{
 						System.out.println("Error");
