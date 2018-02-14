@@ -3,9 +3,8 @@ package com.hkjc.racing.sql;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
-import com.hkjc.racing.model.CompositeOdd;
 import com.hkjc.racing.model.Race;
 import com.hkjc.racing.model.RaceCard;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
@@ -78,7 +77,10 @@ public class RacingService {
 					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
-			statement.setDate(1, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			java.util.Date meetingDate = dateFormat.parse(race.mMeeting.getDate());
+			
+			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.mMeeting.getVenue());
 			statement.setInt(3, race.mRace.getRaceNo());
 			statement.setInt(4, race.mRace.getDistance());
@@ -122,7 +124,11 @@ public class RacingService {
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
-			statement.setDate(1, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			java.util.Date meetingDate = dateFormat.parse(race.getMeetingDate());
+			
+			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.getMeetingVenue());
 			statement.setInt(3, race.getRaceNo());
 			statement.setInt(4, race.getPosition());

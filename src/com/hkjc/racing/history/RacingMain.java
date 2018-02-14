@@ -1,10 +1,6 @@
 package com.hkjc.racing.history;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +12,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hkjc.racing.model.CompositeOdd;
 import com.hkjc.racing.model.Race;
 import com.hkjc.racing.sql.RacingService;
 
@@ -33,7 +28,7 @@ public class RacingMain {
 		loadRacesData(BASE_URL, true);
 	}
 
-	private static void loadURL()throws Exception {
+	/*private static void loadURL()throws Exception {
 		URL uri = new URL("http://racing.hkjc.com/racing/info/meeting/Results/english/Local/20171206/");
 		
 		URLConnection ec = uri.openConnection();
@@ -48,7 +43,7 @@ public class RacingMain {
 		
 		System.out.println(a.toString());
 		
-	}
+	}*/
 	
 	private static void loadRacesData(String url, boolean isToday) throws Exception{
 		List<String> raceDates = getRaceDates(url);
@@ -138,7 +133,7 @@ public class RacingMain {
 		}
 	}
 	
-	private static CompositeOdd loadCompositeURL(String url) throws IOException{
+	/*private static CompositeOdd loadCompositeURL(String url) throws IOException{
 		Document doc = Jsoup.connect(url).get();
 		try {
 			Thread.sleep(5000);
@@ -153,7 +148,7 @@ public class RacingMain {
 		else{
 			return null;
 		}
-	}
+	}*/
 	
 	private static List<List<String>> parseRacingData(Element raceData){
 		Elements rows = raceData.select("tbody tr");
@@ -167,7 +162,7 @@ public class RacingMain {
 		return raceRecords;
 	}
 	
-	private static CompositeOdd parseCompositeWin(Element raceData){
+	/*private static CompositeOdd parseCompositeWin(Element raceData){
 		Element a1Row = raceData.getElementsMatchingOwnText("3 PICK 1").first().parent();
 		String a1Value = a1Row.children().last().ownText();
 		
@@ -183,7 +178,7 @@ public class RacingMain {
 		compositeOdd.setA3Value(a3Value.equalsIgnoreCase("NOT WIN")?0.0f:new Float(a3Value));
 		
 		return compositeOdd;
-	}
+	}*/
 	
 	private static Race createRace(List<String> raceValues, String raceDate, String raceNo, String location){
 		System.out.println(raceValues);

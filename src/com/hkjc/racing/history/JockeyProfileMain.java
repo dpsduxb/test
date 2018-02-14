@@ -1,10 +1,6 @@
 package com.hkjc.racing.history;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,7 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.hkjc.racing.sql.RacingService;
-import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Jockey;
 
 public class JockeyProfileMain {

@@ -1,7 +1,6 @@
 package com.hkjc.racing.history;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hkjc.racing.model.Race;
 import com.hkjc.racing.model.RaceCard;
 import com.hkjc.racing.sql.RacingService;
 
@@ -92,7 +90,7 @@ public class RaceDayDataMain {
 		String details = raceDetail.select("tbody tr td").text();
 		String[] raceList = details.split(",");
 		
-		Map<String, String> raceDetails = new HashMap();
+		Map<String, String> raceDetails = new HashMap<String, String>();
 		
 		try{
 			raceDetails.put("raceName", raceList[0]);

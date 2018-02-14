@@ -52,7 +52,7 @@ public enum HorseRunningStyle {
         try {
             return valueOf("RS_" + str);
         } catch (Exception e) {
-            return RS_0;
+            return horseRunningStyle;
         }
     }
 }

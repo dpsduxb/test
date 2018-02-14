@@ -11,15 +11,19 @@ public class AnalysisServiceMain {
 
 	public static void main(String[] args) {
 		List<List<String>> combinations = new Combinations().getCombinations();
-		for (Iterator iterator = combinations.iterator(); iterator.hasNext();) {
+		
+		for (Iterator<List<String>> iterator = combinations.iterator(); iterator.hasNext();) {
 			List<String> columns = (List<String>) iterator.next();
+			
 			if(columns != null && columns.size() > 0){
 				AnalysisManager analysisManager = new AnalysisManager();
 				String columnsStr = columns.toString().substring(1,columns.toString().length()-1);
-				//String columnsStr = columns.toString().replaceAll("[", "").replaceAll("]", "");
+				
 				List<Map<String, Object>> recordsByGroup = analysisManager.getRecordsByGroup(columnsStr);
+				System.out.println(recordsByGroup);
 				
 				List<Map<String, Object>> resultRecordsByGroup = analysisManager.getResultRecordsByGroup(columnsStr);
+				System.out.println(resultRecordsByGroup);
 			}
 		}
 	}
