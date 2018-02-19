@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.hkjc.racing.sql.RacingService;
+import com.hkjc.racingtouch.model.Dividend;
 import com.hkjc.racingtouch.model.RaceResult;
 
 public class RaceResultsMain {
@@ -45,16 +46,42 @@ public class RaceResultsMain {
 			raceResult.setMeetingVenue(meetingInfo.attr("Venue"));
 			raceResult.setRaceNo(Integer.parseInt(resultInfo.attr("RaceNo")));
 			
+			Dividend dividend = new Dividend();
+			
+			dividend.setMeetingDate(meetInfo.attr("Date"));
+			dividend.setMeetingVenue(meetingInfo.attr("Venue"));
+			dividend.setRaceNo(Integer.parseInt(resultInfo.attr("RaceNo")));
+			
 			for (Element result : resultInfo.select("Result")) {
 				raceResult.setPosition(Integer.parseInt(result.attr("Position")));
 				raceResult.setHorseName(result.attr("HorseName"));
 				raceResult.setJockeyName(result.attr("JockeyName"));
 				raceResult.setHorseNo(result.attr("StarterNumber"));
 				
+				raceResult.setWinOdds(Float.parseFloat(result.select("Horse").attr("WinOdds")));
 			
 				new RacingService().saveRaceResults(raceResult);
 			}
+			
+			for (Element result : resultInfo.select("Dividend Selection")) {
+				if(result.attr("PoolText").equalsIgnoreCase("3 Pick 1")){
+					for (Element group : resultInfo.select("Group")) {
+						dividend.setPoolText(result.attr("PoolText"));
+						dividend.setWinCombination(group.attr("Starters"));
+						dividend.setDividendAmount(Float.parseFloat(group.attr("DividendAmount").equalsIgnoreCase("Not Win")?"0.0":group.attr("DividendAmount")));
+						
+						new RacingService().saveDividends(dividend);
+					}
+				}else{
+					dividend.setPoolText(result.attr("PoolText"));
+					dividend.setWinCombination(result.attr("WinCombination"));
+					dividend.setDividendAmount(Float.parseFloat(result.attr("DividendAmount").equalsIgnoreCase("Not Win")?"0.0":result.attr("DividendAmount").replaceAll(",", "")));
+					
+					new RacingService().saveDividends(dividend);
+				}
+			}
 		}
+
 		
 	}
 }

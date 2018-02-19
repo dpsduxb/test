@@ -8,12 +8,13 @@ import java.text.SimpleDateFormat;
 import com.hkjc.racing.model.Race;
 import com.hkjc.racing.model.RaceCard;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
+import com.hkjc.racingtouch.model.Dividend;
 import com.hkjc.racingtouch.model.Jockey;
 import com.hkjc.racingtouch.model.RaceResult;
 import com.hkjc.racingtouch.utils.SQLUtil;
 
 public class RacingService {
-	
+
 	public void saveRace(Race race) {
 		try {
 			Connection conn = new SQLUtil().getConnection();
@@ -79,7 +80,7 @@ public class RacingService {
 			PreparedStatement statement = conn.prepareStatement(queryString);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			java.util.Date meetingDate = dateFormat.parse(race.mMeeting.getDate());
-			
+
 			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.mMeeting.getVenue());
 			statement.setInt(3, race.mRace.getRaceNo());
@@ -124,10 +125,10 @@ public class RacingService {
 			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
-			
+
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			java.util.Date meetingDate = dateFormat.parse(race.getMeetingDate());
-			
+
 			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.getMeetingVenue());
 			statement.setInt(3, race.getRaceNo());
@@ -135,6 +136,29 @@ public class RacingService {
 			statement.setString(5, race.getHorseNo());
 			statement.setString(6, race.getHorseName());
 			statement.setString(7, race.getJockeyName());
+
+			statement.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void saveDividends(Dividend dividend) {
+		try {
+			Connection conn = new SQLUtil().getConnection();
+			String queryString = "INSERT INTO [HKJC].[dbo].Dividend " + "VALUES (?,?,?,?,?,?)";
+
+			PreparedStatement statement = conn.prepareStatement(queryString);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+			statement.setDate(1, new java.sql.Date(dateFormat.parse(dividend.getMeetingDate()).getTime()));
+			statement.setString(2, dividend.getMeetingVenue());
+			statement.setInt(3, dividend.getRaceNo());
+			statement.setString(4, dividend.getPoolText());
+			statement.setString(5, dividend.getWinCombination());
+			statement.setFloat(6, dividend.getDividendAmount());
 
 			statement.executeUpdate();
 
@@ -193,5 +217,5 @@ public class RacingService {
 	public static void main(String[] args) {
 
 	}
-	
+
 }

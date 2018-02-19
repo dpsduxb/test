@@ -8,6 +8,7 @@ public class RaceResult {
     private String horseNo;
     private String horseName;
     private String jockeyName;
+    private Float winOdds;
     
 	public String getMeetingDate() {
 		return meetingDate;
@@ -50,6 +51,12 @@ public class RaceResult {
 	}
 	public void setJockeyName(String jockeyName) {
 		this.jockeyName = jockeyName;
+	}
+	public Float getWinOdds() {
+		return winOdds;
+	}
+	public void setWinOdds(Float winOdds) {
+		this.winOdds = winOdds;
 	}
     
     
