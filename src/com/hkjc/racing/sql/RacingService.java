@@ -89,7 +89,7 @@ public class RacingService {
 	public void saveRaceResults(RaceResult race) {
 		try {
 			Connection conn = new SQLUtil().getConnection();
-			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?)";
+			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 
@@ -103,6 +103,7 @@ public class RacingService {
 			statement.setString(5, race.getHorseNo());
 			statement.setString(6, race.getHorseName());
 			statement.setString(7, race.getJockeyName());
+			statement.setFloat(8, race.getWinOdds());
 
 			statement.executeUpdate();
 

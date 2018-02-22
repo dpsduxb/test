@@ -17,7 +17,8 @@ public class RaceResultsMain {
 	 * @param args
 	 */
 	public static void main(String[] args) throws IOException{
-		loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_RESULTS&Lang=en-US");
+		//loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_RESULTS&Lang=en-US");
+		loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_LASTNRESULTS&Lang=en-US");
 	}
 
 	private static void loadURL(String url) throws IOException{
@@ -75,7 +76,11 @@ public class RaceResultsMain {
 				}else{
 					dividend.setPoolText(result.attr("PoolText"));
 					dividend.setWinCombination(result.attr("WinCombination"));
-					dividend.setDividendAmount(Float.parseFloat(result.attr("DividendAmount").equalsIgnoreCase("Not Win")?"0.0":result.attr("DividendAmount").replaceAll(",", "")));
+					try {
+						dividend.setDividendAmount(Float.parseFloat(result.attr("DividendAmount").equalsIgnoreCase("Not Win")?"0.0":result.attr("DividendAmount").replaceAll(",", "")));
+					}catch(Exception e) {
+						dividend.setDividendAmount(Float.parseFloat("0.0"));
+					}
 					
 					new RacingService().saveDividends(dividend);
 				}

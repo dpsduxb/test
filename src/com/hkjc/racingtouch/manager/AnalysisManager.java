@@ -18,10 +18,14 @@ public class AnalysisManager {
 	}
 	
 	public List<Map<String, Object>> getResultRecordsByGroup(String groupByCols ){
-		String queryString = "SELECT " + groupByCols.toString() + ", COUNT(position) as winTotal, COUNT(*) as total "
-				+ "FROM [HKJC].[dbo].RaceHorse rh LEFT OUTER JOIN [HKJC].[dbo].RaceResult rr "
-				+ "ON rh.MeetingDate = rr.MeetingDate AND rh.RaceNo = rr.RaceNo AND rh.HorseNo = rr.HorseNo WHERE position = 1 GROUP BY " 
-				+ groupByCols.toString() + " ORDER BY total desc";
+		String rankColumn = "";
+		if(groupByCols.contains("Rank")) {
+			rankColumn = " INNER JOIN [HKJC].[dbo].Jockey j ON j.JockeyCode = rh.JockeyCode"; 
+		}
+		String queryString = "SELECT " + groupByCols.toString() + ", COUNT(position) as winTotal, COUNT(*) as total, (COUNT(position)*100/COUNT(*)) as perc "
+				+ "FROM [HKJC].[dbo].RaceHorse rh " + rankColumn + " LEFT OUTER JOIN [HKJC].[dbo].RaceResult rr "
+				+ "ON rh.MeetingDate = rr.MeetingDate AND rh.RaceNo = rr.RaceNo AND rh.HorseNo = rr.HorseNo GROUP BY " 
+				+ groupByCols.toString() + " ORDER BY perc desc";
 		
 		return executeQuery(queryString, groupByCols);
 	}
@@ -43,7 +47,7 @@ public class AnalysisManager {
 			ResultSet resultSet = conn.createStatement().executeQuery( sqlQuery );
 			
 			List<Map<String, Object>> resultSet2 = new SQLUtil().parseResultSet(resultSet);
-			System.out.println("Results: " + resultSet2);
+			//System.out.println("Results: " + resultSet2);
 			
 			return resultSet2;
 		} catch (SQLException e) {

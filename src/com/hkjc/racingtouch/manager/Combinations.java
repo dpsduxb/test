@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Combinations {
 
-	/*String a[] = { "MeetingVenue", "Distance", "LastSixRecords", "Draw", "Ability", "Condition", "JockeyCode", "RunningStyleAll", "IdealDistance", "DistanceTotalRuns",
+	/*String a[] = { "MeetingVenue", "Distance", "LastSixRecords", "Draw", "Ability", "Condition", "JockeyCode", "RunningStyleAll", "IdealDistance",
 			 		"DistanceTotalRuns", "DistanceFirst", "DistanceSecond", "DistanceThird"};*/
-	String a[] = { "Ability", "Condition", "JockeyCode", "RunningStyleAll", "draw"};
+	String a[] = { "Ability", "Condition", "Rank", "RunningStyleAll", "draw"};
 	
 	public List<List<String>> getCombinations(){
 		List<List<String>> combinations = new ArrayList<List<String>>();

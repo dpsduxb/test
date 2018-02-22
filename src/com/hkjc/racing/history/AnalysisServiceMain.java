@@ -19,11 +19,13 @@ public class AnalysisServiceMain {
 				AnalysisManager analysisManager = new AnalysisManager();
 				String columnsStr = columns.toString().substring(1,columns.toString().length()-1);
 				
-				List<Map<String, Object>> recordsByGroup = analysisManager.getRecordsByGroup(columnsStr);
-				System.out.println(recordsByGroup);
+				//List<Map<String, Object>> recordsByGroup = analysisManager.getRecordsByGroup(columnsStr);
+				//System.out.println(recordsByGroup);
 				
 				List<Map<String, Object>> resultRecordsByGroup = analysisManager.getResultRecordsByGroup(columnsStr);
-				System.out.println(resultRecordsByGroup);
+				//System.out.println(resultRecordsByGroup);
+				
+				//Collections.sort
 			}
 		}
 	}
