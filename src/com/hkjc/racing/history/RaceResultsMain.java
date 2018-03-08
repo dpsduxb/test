@@ -17,8 +17,8 @@ public class RaceResultsMain {
 	 * @param args
 	 */
 	public static void main(String[] args) throws IOException{
-		//loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_RESULTS&Lang=en-US");
-		loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_LASTNRESULTS&Lang=en-US");
+		loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_RESULTS&Lang=en-US");
+		//loadURL("http://ibutinfo01.hkjc.com/infoA/IBUA/HR_GetInfo.ashx?QT=HR_LASTNRESULTS&Lang=en-US");
 	}
 
 	private static void loadURL(String url) throws IOException{
