@@ -4,19 +4,31 @@ import java.util.List;
 
 public class Rules {
 
-	public boolean formRule(List<Integer> lastSix){
+	public double formRule(List<Integer> lastSix){
 		return new FormRule().getPoints(lastSix);
 	}
 	
-	public boolean distanceRule(String distance){
-		return false;
+	public double distanceRule(String distance, String idealDistance){
+		return new DistanceRule().getPoints(distance, idealDistance);
 	}
 	
-	public boolean drawRule(String draw){
-		return false;
+	public double drawRule(String draw){
+		return new DrawRule().getPoints(draw);
 	}
 	
-	public boolean AbilityRule(String ability){
-		return false;
+	public double AbilityRule(String ability){
+		return new AbilityRule().getPoints(ability);
+	}
+	
+	public double CoditionRule(String condition){
+		return new ConditionRule().getPoints(condition);
+	}
+	
+	public double RunningStyleRule(String runningStyle){
+		return new RunningStyleRule().getPoints(runningStyle);
+	}
+	
+	public double RankRule(String rank){
+		return new RankRule().getPoints(rank);
 	}
 }
