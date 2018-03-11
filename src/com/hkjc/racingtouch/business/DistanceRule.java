@@ -10,7 +10,7 @@ public class DistanceRule{
 		int idealDistanceEnd = Integer.parseInt(idealDistanceRange[1]); 
 		int distanceInt = Integer.parseInt(distance); 
 		
-		if(distanceInt >= idealDistanceStart || distanceInt <= idealDistanceEnd){
+		if(distanceInt >= idealDistanceStart && distanceInt <= idealDistanceEnd){
 			return 1;
 		}
 		

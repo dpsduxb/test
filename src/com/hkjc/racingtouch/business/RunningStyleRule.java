@@ -5,7 +5,7 @@ public class RunningStyleRule{
 	public double getPoints(String runningStyle) {
 		int points = 0;
 		try{
-			return 1.0/Integer.parseInt(runningStyle);
+			return 1.0/(4*Integer.parseInt(runningStyle));
 		}catch(Exception e){
 			e.printStackTrace();;
 		}

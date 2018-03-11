@@ -5,18 +5,18 @@ import java.util.List;
 
 public class FormRule{
 
-	public int getPoints(List<Integer> previousRuns) {
+	public Double getPoints(List<Integer> previousRuns) {
 		
-		int formPoints = 0;
+		double formPoints = 0.0;
 		for (Iterator<Integer> iterator = previousRuns.iterator(); iterator.hasNext();) {
 			Integer previousPos = iterator.next();
 			
 			formPoints += previousPos;
 		}
 		if(previousRuns.size() == 0){
-			return 0;
+			return 0.0;
 		}
-		return formPoints/previousRuns.size();
+		return previousRuns.size()/formPoints;
 		
 		/*int firstAverage = 0;
 		int secondAverage = 0;

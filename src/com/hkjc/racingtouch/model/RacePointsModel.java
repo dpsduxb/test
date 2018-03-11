@@ -2,6 +2,10 @@ package com.hkjc.racingtouch.model;
 
 public class RacePointsModel implements Comparable<RacePointsModel> {
 
+	private String MeetingDate;
+	private String MeetingVenue;
+	private String RaceNo;
+	private String HorseNo;
 	private double ability;
 	private double condition;
 	private double distance;
@@ -139,5 +143,53 @@ public class RacePointsModel implements Comparable<RacePointsModel> {
 			return -1;
 		}
 		return 0;
+	}
+
+
+
+	public String getMeetingDate() {
+		return MeetingDate;
+	}
+
+
+
+	public void setMeetingDate(String meetingDate) {
+		MeetingDate = meetingDate;
+	}
+
+
+
+	public String getMeetingVenue() {
+		return MeetingVenue;
+	}
+
+
+
+	public void setMeetingVenue(String meetingVenue) {
+		MeetingVenue = meetingVenue;
+	}
+
+
+
+	public String getRaceNo() {
+		return RaceNo;
+	}
+
+
+
+	public void setRaceNo(String raceNo) {
+		RaceNo = raceNo;
+	}
+
+
+
+	public String getHorseNo() {
+		return HorseNo;
+	}
+
+
+
+	public void setHorseNo(String horseNo) {
+		HorseNo = horseNo;
 	}
 }

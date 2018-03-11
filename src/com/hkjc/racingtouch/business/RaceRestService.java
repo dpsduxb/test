@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.hkjc.racing.sql.RacingService;
 import com.hkjc.racingtouch.model.HorseEntity;
 
 public class RaceRestService {
@@ -21,6 +22,13 @@ public class RaceRestService {
 		            });
 		
 		List<HorseEntity> races = rateResponse.getBody();
+		
+		return races;
+	}
+	
+	public List<HorseEntity> getRaceDayDataSQL() {
+		
+		List<HorseEntity> races = new RacingService().getRaces();
 		
 		return races;
 	}

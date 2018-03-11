@@ -2,11 +2,18 @@ package com.hkjc.racing.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import com.hkjc.racingtouch.business.RaceDayAnalysis;
 import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Dividend;
+import com.hkjc.racingtouch.model.HorseEntity;
 import com.hkjc.racingtouch.model.Jockey;
+import com.hkjc.racingtouch.model.RacePointsModel;
 import com.hkjc.racingtouch.model.RaceResult;
 import com.hkjc.racingtouch.utils.SQLUtil;
 
@@ -16,7 +23,8 @@ public class RacingService {
 		try {
 			Connection conn = new SQLUtil().getConnection();
 
-			String queryString = "INSERT INTO [HKJC].[dbo].Jockey " + "VALUES (?,?,?,?,?,?,?,?,?)";
+			String queryString = "INSERT INTO [HKJC].[dbo].Jockey "
+					+ "VALUES (?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 			statement.setString(1, jockey.getJockeyCode());
@@ -46,7 +54,8 @@ public class RacingService {
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			java.util.Date meetingDate = dateFormat.parse(race.mMeeting.getDate());
+			java.util.Date meetingDate = dateFormat.parse(race.mMeeting
+					.getDate());
 
 			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.mMeeting.getVenue());
@@ -89,12 +98,14 @@ public class RacingService {
 	public void saveRaceResults(RaceResult race) {
 		try {
 			Connection conn = new SQLUtil().getConnection();
-			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult " + "VALUES (?,?,?,?,?,?,?,?)";
+			String queryString = "INSERT INTO [HKJC].[dbo].RaceResult "
+					+ "VALUES (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			java.util.Date meetingDate = dateFormat.parse(race.getMeetingDate());
+			java.util.Date meetingDate = dateFormat
+					.parse(race.getMeetingDate());
 
 			statement.setDate(1, new java.sql.Date(meetingDate.getTime()));
 			statement.setString(2, race.getMeetingVenue());
@@ -113,15 +124,48 @@ public class RacingService {
 		}
 	}
 
+	public void saveRaceDayPoints(RacePointsModel race) {
+		try {
+			Connection conn = new SQLUtil().getConnection();
+			String queryString = "INSERT INTO [HKJC].[dbo].RaceDayPoints "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			PreparedStatement statement = conn.prepareStatement(queryString);
+
+			statement.setString(1, race.getMeetingDate());
+			statement.setString(2, race.getMeetingVenue());
+			statement.setString(3, race.getRaceNo());
+			statement.setString(4, race.getHorseNo());
+			statement.setDouble(5, race.getAbility());
+			statement.setDouble(6, race.getCondition());
+			statement.setDouble(7, race.getDistance());
+			statement.setDouble(8, race.getDraw());
+			statement.setDouble(9, race.getForm());
+			statement.setDouble(10, race.getRank());
+			statement.setDouble(11, race.getRunningStyle());
+			statement.setDouble(12, race.getTotalPoints());
+			
+			statement.executeUpdate();
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void saveDividends(Dividend dividend) {
 		try {
 			Connection conn = new SQLUtil().getConnection();
-			String queryString = "INSERT INTO [HKJC].[dbo].Dividend " + "VALUES (?,?,?,?,?,?)";
+			String queryString = "INSERT INTO [HKJC].[dbo].Dividend "
+					+ "VALUES (?,?,?,?,?,?)";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-			statement.setDate(1, new java.sql.Date(dateFormat.parse(dividend.getMeetingDate()).getTime()));
+			statement.setDate(
+					1,
+					new java.sql.Date(dateFormat.parse(
+							dividend.getMeetingDate()).getTime()));
 			statement.setString(2, dividend.getMeetingVenue());
 			statement.setInt(3, dividend.getRaceNo());
 			statement.setString(4, dividend.getPoolText());
@@ -134,6 +178,46 @@ public class RacingService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<HorseEntity> getRaces() {
+		List<HorseEntity> races = new ArrayList<HorseEntity>();
+
+		try {
+			Connection conn = new SQLUtil().getConnection();
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+			String queryString = "SELECT * FROM [HKJC].[dbo].RaceHorse WHERE MeetingDate = '" + dateFormat.format(new Date()) + "'";
+
+			PreparedStatement statement = conn.prepareStatement(queryString);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				HorseEntity horse = new HorseEntity();
+
+				horse.setAbility(rs.getString("Ability"));
+				horse.setCondition(rs.getString("Condition"));
+				horse.setDistance(rs.getString("Distance"));
+				horse.setDraw(rs.getString("Draw"));
+				horse.setIdealDistance(rs.getString("IdealDistance"));
+				horse.setLastSixRecords(rs.getString("LastSixRecords"));
+				horse.setLastSixRunTxt(rs.getString("LastSixRunTxt"));
+				horse.setRunningStyleAll(rs.getString("RunningStyleAll"));
+				horse.setRaceNo(rs.getString("RaceNo"));
+				horse.setMeetingDate(rs.getString("MeetingDate"));
+				horse.setComment(rs.getString("Comment"));
+				horse.setMeetingDate(rs.getString("MeetingDate"));
+				horse.setMeetingVenue(rs.getString("MeetingVenue"));
+				horse.setHorseNo(rs.getString("HorseNo"));
+				
+				races.add(horse);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return races;
 	}
 
 	public static void main(String[] args) {

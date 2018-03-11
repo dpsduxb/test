@@ -8,7 +8,7 @@ public class ConditionRule{
 		
 		for (int i = 0; i < conditions.length; i++) {
 			if(conditions[i].equalsIgnoreCase(condition)){
-				return 1.0/(i+1);
+				return 1.0/(7*(i+1));
 			}
 		}
 		
