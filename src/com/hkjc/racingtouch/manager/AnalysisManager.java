@@ -17,6 +17,16 @@ public class AnalysisManager {
 		return executeQuery(queryString, groupByCols);
 	}
 	
+	public List<Map<String, Object>> getResultRecords( ){
+		String rankColumn = "";
+		rankColumn = " INNER JOIN [HKJC].[dbo].Jockey j ON j.JockeyCode = rh.JockeyCode"; 
+		
+		String queryString = "SELECT * FROM [HKJC].[dbo].RaceHorse rh " + rankColumn + " LEFT OUTER JOIN [HKJC].[dbo].RaceResult rr "
+				+ "ON rh.MeetingDate = rr.MeetingDate AND rh.RaceNo = rr.RaceNo AND rh.HorseNo = rr.HorseNo";
+		
+		return executeQuery(queryString, "");
+	}
+	
 	public List<Map<String, Object>> getResultRecordsByGroup(String groupByCols ){
 		String rankColumn = "";
 		if(groupByCols.contains("Rank")) {
@@ -43,11 +53,11 @@ public class AnalysisManager {
 	private List<Map<String, Object>> executeQuery(String sqlQuery, String columns){
 		Connection conn = new SQLUtil().getConnection();
 		System.out.println("SQL Query: " + sqlQuery);
+
 		try {
 			ResultSet resultSet = conn.createStatement().executeQuery( sqlQuery );
 			
 			List<Map<String, Object>> resultSet2 = new SQLUtil().parseResultSet(resultSet);
-			//System.out.println("Results: " + resultSet2);
 			
 			return resultSet2;
 		} catch (SQLException e) {
