@@ -8,7 +8,7 @@ public class AbilityRule{
 		
 		for (int i = 0; i < abilities.length; i++) {
 			if(abilities[i].equalsIgnoreCase(ability)){
-				return 1.0/(7*(i+1));
+				return 1.0-i*0.07;
 			}
 		}
 		

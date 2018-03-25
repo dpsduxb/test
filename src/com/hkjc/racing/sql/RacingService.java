@@ -13,6 +13,7 @@ import com.hkjc.racingtouch.manager.RaceXMLParser;
 import com.hkjc.racingtouch.model.Dividend;
 import com.hkjc.racingtouch.model.HorseEntity;
 import com.hkjc.racingtouch.model.Jockey;
+import com.hkjc.racingtouch.model.JockeyEntity;
 import com.hkjc.racingtouch.model.RacePointsModel;
 import com.hkjc.racingtouch.model.RaceResult;
 import com.hkjc.racingtouch.utils.SQLUtil;
@@ -188,7 +189,8 @@ public class RacingService {
 			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-			String queryString = "SELECT * FROM [HKJC].[dbo].RaceHorse WHERE MeetingDate = '" + dateFormat.format(new Date()) + "'";
+			String queryString = "SELECT * FROM [HKJC].[dbo].RaceHorse rh LEFT OUTER JOIN [HKJC].[dbo].Jockey j ON rh.JockeyCode= j.JockeyCode" +
+					" WHERE MeetingDate = '" + dateFormat.format(new Date()) + "'";
 
 			PreparedStatement statement = conn.prepareStatement(queryString);
 			ResultSet rs = statement.executeQuery();
@@ -209,6 +211,13 @@ public class RacingService {
 				horse.setMeetingDate(rs.getString("MeetingDate"));
 				horse.setMeetingVenue(rs.getString("MeetingVenue"));
 				horse.setHorseNo(rs.getString("HorseNo"));
+				
+				JockeyEntity jockeyEntity = new JockeyEntity();
+				jockeyEntity.setJockeyCode(rs.getString("JockeyCode"));
+				jockeyEntity.setNameE(rs.getString("NameE"));
+				jockeyEntity.setRank(rs.getString("Rank"));
+				
+				horse.setJockey(jockeyEntity);
 				
 				races.add(horse);
 			}

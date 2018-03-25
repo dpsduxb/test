@@ -50,6 +50,7 @@ public HorseEntity( String DistanceThird, String TrainerCode, String LifeTotalRu
 	private String MeetingDate;
 	private String id;
 	private String JockeyCode;
+	private JockeyEntity Jockey;
 	private String DistanceFirst;
 	private String LastHorseWeight;
 	private String RaceNo;
@@ -171,6 +172,14 @@ public HorseEntity( String DistanceThird, String TrainerCode, String LifeTotalRu
 	public String getDraw () {
 		return this.Draw;
 	}
+	public JockeyEntity getJockey() {
+		return Jockey;
+	}
+
+	public void setJockey(JockeyEntity jockey) {
+		Jockey = jockey;
+	}
+
 	public void setLifeFirst (String LifeFirst){
 		this.LifeFirst = LifeFirst;
 	}

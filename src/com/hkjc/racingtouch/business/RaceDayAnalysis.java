@@ -41,7 +41,7 @@ public class RaceDayAnalysis {
 		racePointsModel.setDistance(new Rules().distanceRule(horseEntity.getDistance(), horseEntity.getIdealDistance()));
 		racePointsModel.setDraw(new Rules().drawRule(horseEntity.getDraw()));
 		racePointsModel.setForm(new Rules().formRule(new RulesHelper().getLastSix(horseEntity.getLastSixRecords())));
-		//new Rules().RankRule(horseEntity.getra());
+		racePointsModel.setRank(new Rules().RankRule(horseEntity.getJockey().getRank()));
 		racePointsModel.setRunningStyle(new Rules().RunningStyleRule(horseEntity.getRunningStyleAll()));
 		
 		return racePointsModel;

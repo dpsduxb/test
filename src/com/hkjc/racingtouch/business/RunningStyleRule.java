@@ -3,9 +3,9 @@ package com.hkjc.racingtouch.business;
 public class RunningStyleRule{
 
 	public double getPoints(String runningStyle) {
-		int points = 0;
+		double points = 0.0;
 		try{
-			return 1.0/(4*Integer.parseInt(runningStyle));
+			return 1.0 - .03*Integer.parseInt(runningStyle);
 		}catch(Exception e){
 			e.printStackTrace();;
 		}

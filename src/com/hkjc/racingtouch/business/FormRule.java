@@ -8,15 +8,16 @@ public class FormRule{
 	public Double getPoints(List<Integer> previousRuns) {
 		
 		double formPoints = 0.0;
+		double formPos = 0.0;
 		for (Iterator<Integer> iterator = previousRuns.iterator(); iterator.hasNext();) {
 			Integer previousPos = iterator.next();
 			
-			formPoints += previousPos;
+			formPos += previousPos;
 		}
 		if(previousRuns.size() == 0){
-			return 0.0;
+			return 0.5;
 		}
-		return previousRuns.size()/formPoints;
+		formPoints = 1 - (formPos/previousRuns.size())*.07;
 		
 		/*int firstAverage = 0;
 		int secondAverage = 0;
@@ -33,9 +34,9 @@ public class FormRule{
 		
 		if(firstAverage < secondAverage && firstAverage <= 4){
 			formPoints += 1;
-		}
+		}*/
 		
-		return formPoints;*/
+		return formPoints;
 	}
 
 }

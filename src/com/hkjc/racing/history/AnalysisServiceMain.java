@@ -23,7 +23,7 @@ public class AnalysisServiceMain {
 		serializeData(resultRecords);
 		deserializeData();
 		
-		/*for (Iterator<List<String>> iterator = combinations.iterator(); iterator.hasNext();) {
+		for (Iterator<List<String>> iterator = combinations.iterator(); iterator.hasNext();) {
 			List<String> columns = (List<String>) iterator.next();
 			
 			if(columns != null && columns.size() > 0){
@@ -38,7 +38,7 @@ public class AnalysisServiceMain {
 				
 				//Collections.sort
 			}
-		}*/
+		}
 	}
 	
 	private static void serializeData(List<Map<String, Object>> resultRecords){

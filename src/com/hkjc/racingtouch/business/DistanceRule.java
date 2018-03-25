@@ -2,8 +2,8 @@ package com.hkjc.racingtouch.business;
 
 public class DistanceRule{
 
-	public int getPoints(String distance, String idealDistance) {
-		int points = 0;
+	public double getPoints(String distance, String idealDistance) {
+		double points = 0.5;
 		String[] idealDistanceRange = idealDistance.split("-");
 		
 		int idealDistanceStart = Integer.parseInt(idealDistanceRange[0]); 
